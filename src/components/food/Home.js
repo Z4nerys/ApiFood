@@ -1,6 +1,7 @@
-import React, { useEffect, useMemo, useState } from 'react'
+import React, {useMemo, useState } from 'react'
 import { FoodList } from './FoodList';
 import axios from 'axios';
+import { Navbar } from '../navegacion/Navbar';
 
 export const Home = () => {
     const [foods, setFoods] = useState([]);
@@ -30,6 +31,7 @@ export const Home = () => {
   
     return (
       <>
+        <Navbar />
         <h1 className='text-center'>AlkemyChallenge</h1>
         <hr />
         <FoodList foods={foods}/>
