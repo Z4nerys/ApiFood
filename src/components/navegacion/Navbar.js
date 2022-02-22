@@ -1,12 +1,16 @@
 import React from 'react'
 import { Link, useNavigate} from 'react-router-dom'
+import logoutSound from '../../sounds/logout.mp3'; 
 
 export const Navbar = () => {
     
     const navigate = useNavigate();
 
     const handleLogout = () =>{
-        navigate('/login')
+        new Audio(logoutSound).play()
+        navigate('/login',{
+            replace: true
+        })
     }
 
     return (
