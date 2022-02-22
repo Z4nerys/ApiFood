@@ -6,27 +6,40 @@ export const FoodCard = ({
     title,
     image,
     origin,
-    status
+    status,
+    add,
 }) => {
-    const [buy, setBuy] = useState(false)
+    
+    const [showDetail, setShowDetail] = useState(false)
 
-    const handleBuy = () => {
-        setBuy(!buy)
+    const handleDetail = () => {
+        setShowDetail(!showDetail)
     }
 
     return (
         <div className='col-md-4 col-sm-5 col-lg-3 mb-4'>
             <div className="card" >
-                <h5 style={{ height: "3rem" }} className='mt-4 card-title'>{name}</h5>
+                <h5 style={{ height: "2rem" }} className='mt-3 card-title'>{name}</h5>
                 <img className="card-img-top" src={image} alt={title} />
                 <p style={{ height: "3rem" }} className="mt-4 text-muted">origin: {origin.name}</p>
                 <p className='card-text'>status: {status}</p>
-                <button className='btn btn-warning mb-2'>ver detalles</button>
-                {buy ?
-                    <button className="btn btn-primary" onClick={handleBuy}>Buy</button>
-                    :
-                    <button className="btn btn-dark" onClick={handleBuy}>eliminar</button>
+                {
+                    showDetail ?
+                        <>
+                            <p className='text-card'>soy detalle, soy una comida muy rica y deliciosa</p>
+                            <button className='btn btn-warning mb-2' onClick={handleDetail}>ocultar</button>
+                        </>
+                        :
+                        <>
+                            <button className='btn btn-warning mb-2' onClick={handleDetail}>detail</button>
+                        </>
                 }
+
+                {/* {buy ?
+                    <button className="btn btn-dark" onClick={()=>remove(id)}>eliminar</button>
+                    :
+                } */}
+                <button className="btn btn-primary" onClick={()=>add(id)}>Buy</button>
             </div>
         </div>
     )
