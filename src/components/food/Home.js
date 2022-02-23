@@ -18,19 +18,21 @@ import { Item } from '../cart/Item';
 export const Home = () => {
 
   const foods = useApiCall('https://rickandmortyapi.com/api/character');
-  const [listCart, setListCart] = useState([])
-
-
+  const [listCart, setListCart] = useState([]);
+    
   const add = (id) => {
-    const newItem = foods.find(food => food.id === id)
-    const exits = listCart.find(item => item.id === newItem.id)
-    exits ? alert('ese item ya fue agregado') : setListCart([...listCart, newItem])
+    if(listCart.length >= 4){
+      alert('ya no se pueden agregar mas platos al menu')
+    }else{
+      const newItem = foods.find(food => food.id === id)
+      const exits = listCart.find(item => item.id === newItem.id)
+      exits ? alert('ese item ya fue agregado') : setListCart([...listCart, newItem])
+    }
   }
 
   const remove = (id) => {
     const deleteItem = listCart.filter(food => food.id !== id)
     setListCart(deleteItem)
-
   }
 
   const reset = () => {
@@ -61,7 +63,6 @@ export const Home = () => {
           <tbody>
             {
               listCart.map((item) => {
-                console.log(item)
                 return <Item
                   key={item.id}
                   {...item}
