@@ -25,8 +25,6 @@ export const Home = () => {
     const newItem = foods.find(food => food.id === id)
     const exits = listCart.find(item => item.id === newItem.id)
     exits ? alert('ese item ya fue agregado') : setListCart([...listCart, newItem])
-
-
   }
 
   const remove = (id) => {
@@ -49,18 +47,30 @@ export const Home = () => {
         foods={foods}
         add={add}
       />
-      <h1>Carrito</h1>
-      <div className='container bg-danger'>
-        {
-          listCart.map((item) => {
-            console.log(item)
-            return <Item
-              key={item.id}
-              {...item}
-              remove={remove}
-            />
-          })
-        }
+      <div className='container'>
+        <h4 className='text-center'>Cart</h4>
+        <table className="table">
+          <thead>
+            <tr>
+              <th scope="col">#</th>
+              <th scope="col">name</th>
+              <th scope="col">img</th>
+              <th scope="col">gender</th>
+            </tr>
+          </thead>
+          <tbody>
+            {
+              listCart.map((item) => {
+                console.log(item)
+                return <Item
+                  key={item.id}
+                  {...item}
+                  remove={remove}
+                />
+              })
+            }
+          </tbody>
+        </table>
         <div>
           <button className='btn btn-secondary' onClick={reset}>clear cart</button>
         </div>

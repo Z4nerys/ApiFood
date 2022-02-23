@@ -9,12 +9,15 @@ export const Item = ({
     status,
     remove
 }) => {
-
     return (
-    <>
-        <div>{name}</div>
-        <button className='btn btn-primary mr-2' onClick={()=>remove(id)}>remove</button>
-    </>
+        <>
+            <tr >
+                <th scope="row">{id}</th>
+                <td>{name}</td>
+                <td><img src={image} width={100} alt={name}/></td>
+                <td>{gender}</td>
+                <td><button className='btn btn-info' onClick={()=>remove(id)}>remove</button></td>
+            </tr>
+        </>
     )
 }
-
