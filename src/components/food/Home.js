@@ -16,10 +16,9 @@ import { Item } from '../cart/Item';
 // apikey 3 = 47ed6fdb2c484437b2cf702aa799276e
 
 export const Home = () => {
-
   const foods = useApiCall('https://rickandmortyapi.com/api/character');
   const [listCart, setListCart] = useState([]);
-    
+  
   const add = (id) => {
     if(listCart.length >= 4){
       alert('ya no se pueden agregar mas platos al menu')
@@ -27,6 +26,7 @@ export const Home = () => {
       const newItem = foods.find(food => food.id === id)
       const exits = listCart.find(item => item.id === newItem.id)
       exits ? alert('ese item ya fue agregado') : setListCart([...listCart, newItem])
+      
     }
   }
 
@@ -48,9 +48,11 @@ export const Home = () => {
       <FoodList
         foods={foods}
         add={add}
+        remove={remove}
       />
       <div className='container'>
         <h4 className='text-center'>Cart</h4>
+        <button className='btn btn-danger' onClick={reset}>clear cart</button>
         <table className="table">
           <thead>
             <tr>
@@ -72,9 +74,6 @@ export const Home = () => {
             }
           </tbody>
         </table>
-        <div>
-          <button className='btn btn-secondary' onClick={reset}>clear cart</button>
-        </div>
       </div>
     </>
   )

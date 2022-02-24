@@ -9,12 +9,14 @@ export const FoodCard = ({
     status,
     add,
 }) => {
+
     
     const [showDetail, setShowDetail] = useState(false)
 
     const handleDetail = () => {
         setShowDetail(!showDetail)
     }
+    
 
     return (
         <div className='col-md-4 col-sm-5 col-lg-3 mb-4'>
@@ -39,7 +41,7 @@ export const FoodCard = ({
                     <button className="btn btn-dark" onClick={()=>remove(id)}>eliminar</button>
                     :
                 } */}
-                <button className="btn btn-primary" onClick={()=>add(id)}>Buy</button>
+                <button className="btn btn-primary" onClick={()=>add(id) }>Buy</button>
             </div>
         </div>
     )
