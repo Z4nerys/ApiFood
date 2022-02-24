@@ -22,7 +22,6 @@ export const Home = () => {
   const foods = useApiCall(`https://api.spoonacular.com/recipes/complexSearch?&apiKey=${apikey}`);
   const [listCart, setListCart] = useState([]);
 
-
   const add = (id) => {
     if (listCart.length >= 4) {
       alert('ya no se pueden agregar mas platos al menu')
@@ -65,11 +64,11 @@ export const Home = () => {
         <table className="table">
           <thead>
             <tr>
-              <th scope="col">name</th>
-              <th scope="col">img</th>
-              <th scope="col">price</th>
-              <th scope="col">readyInMinutes</th>
-              <th scope="col">remove</th>
+              <th scope="col">Name</th>
+              <th scope="col">Img</th>
+              <th scope="col">Price</th>
+              <th scope="col">Ready in...</th>
+              <th scope="col">Remove</th>
             </tr>
           </thead>
           <tbody>
@@ -82,6 +81,22 @@ export const Home = () => {
                 />
               })
             }
+          </tbody>
+        </table>
+        <table className='table'>
+        <thead>
+            <tr>
+              <th scope="col">Menu</th>
+              <th scope="col">Final Price</th>
+              <th scope="col">Ready total</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>dishes: 1</td>
+              <td>$99</td> 
+              <td>20 minutes</td> 
+            </tr>
           </tbody>
         </table>
       </div>

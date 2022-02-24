@@ -10,9 +10,8 @@ export const Item = ({
 }) => {
     return (
         <>
-            <tr >
-                
-                <td scope="row">{title}</td>
+            <tr>
+                <td>{title}</td>
                 <td><img src={image} width={100} alt={title}/></td>
                 <td>${pricePerServing}</td>
                 <td>{readyInMinutes} minutes</td>
