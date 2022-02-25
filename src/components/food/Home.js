@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, {useState } from 'react'
 import { FoodList } from './FoodList';
 import { useApiCall } from '../customHooks/useApiCall'
 import { Navbar } from '../navegacion/Navbar';
@@ -18,9 +18,10 @@ import axios from 'axios';
 
 export const Home = () => {
 
-  const apikey= '99e23a28d32b4bc0bf4f1db6d7e5693a'
+  const apikey= '5ec1b4b811504fbfbef0a567e9059c05'
   const foods = useApiCall(`https://api.spoonacular.com/recipes/complexSearch?&apiKey=${apikey}`);
   const [listCart, setListCart] = useState([]);
+  const [price, setPrice] = useState(0);
 
   const add = (id) => {
     if (listCart.length >= 4) {
@@ -31,6 +32,7 @@ export const Home = () => {
       exits ? alert('ese item ya fue agregado') : axios.get(`https://api.spoonacular.com/recipes/${id}/information?&apiKey=${apikey}`)
       .then(response => {
         setListCart([...listCart, response.data])
+        setPrice(price + response.data.pricePerServing)
       }).catch(e => console.log(e))
       //el axios de aca deberia haber llamado a useApiCall pero x alguna razon react me tiraba un problema. y para que funcione en useApiCall tenia que borrar ".results"
       //y decidi hacerlo asi para entregar algo funcional a algo no funcional pero optimizado
@@ -38,15 +40,17 @@ export const Home = () => {
   }
   console.log(foods)
 
-  const remove = (id) => {
+  const remove = (id, pricePerServing) => {
     const deleteItem = listCart.filter(food => food.id !== id)
+    setPrice(price - pricePerServing) 
     setListCart(deleteItem)
   }
 
   const reset = () => {
+    setPrice(0)
     setListCart([])
   }
-
+  
 
   return (
     <>
@@ -86,15 +90,13 @@ export const Home = () => {
         <table className='table'>
         <thead>
             <tr>
-              <th scope="col">Menu</th>
               <th scope="col">Final Price</th>
               <th scope="col">Ready total</th>
             </tr>
           </thead>
           <tbody>
             <tr>
-              <td>dishes: 1</td>
-              <td>$99</td> 
+              <td>${price.toFixed(2)}</td> 
               <td>20 minutes</td> 
             </tr>
           </tbody>

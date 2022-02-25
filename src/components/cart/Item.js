@@ -15,7 +15,7 @@ export const Item = ({
                 <td><img src={image} width={100} alt={title}/></td>
                 <td>${pricePerServing}</td>
                 <td>{readyInMinutes} minutes</td>
-                <td><button className='btn btn-info' onClick={()=>remove(id)}>remove</button></td>
+                <td><button className='btn btn-info' onClick={()=>remove(id,pricePerServing)}>remove</button></td>
             </tr>
         </>
     )
