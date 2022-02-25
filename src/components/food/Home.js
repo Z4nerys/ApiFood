@@ -1,4 +1,4 @@
-import React, {useState } from 'react'
+import React, { useState } from 'react'
 import { FoodList } from './FoodList';
 import { useApiCall } from '../customHooks/useApiCall'
 import { Navbar } from '../navegacion/Navbar';
@@ -18,10 +18,12 @@ import axios from 'axios';
 
 export const Home = () => {
 
-  const apikey= '5ec1b4b811504fbfbef0a567e9059c05'
+  const apikey = '99e23a28d32b4bc0bf4f1db6d7e5693a'
   const foods = useApiCall(`https://api.spoonacular.com/recipes/complexSearch?&apiKey=${apikey}`);
   const [listCart, setListCart] = useState([]);
   const [price, setPrice] = useState(0);
+  const [cantMenu, setCantMenu] = useState(0);
+  const [tiempoPreparacion, setTiempoPreparacion] = useState(0)
 
   const add = (id) => {
     if (listCart.length >= 4) {
@@ -30,27 +32,33 @@ export const Home = () => {
       const newItem = foods.find(food => food.id === id)
       const exits = listCart.find(item => item.id === newItem.id)
       exits ? alert('ese item ya fue agregado') : axios.get(`https://api.spoonacular.com/recipes/${id}/information?&apiKey=${apikey}`)
-      .then(response => {
-        setListCart([...listCart, response.data])
-        setPrice(price + response.data.pricePerServing)
-      }).catch(e => console.log(e))
+        .then(response => {
+          setListCart([...listCart, response.data])
+          setTiempoPreparacion(tiempoPreparacion + response.data.readyInMinutes)
+          setCantMenu(cantMenu + 1)
+          setPrice(price + response.data.pricePerServing)
+        }).catch(e => console.log(e))
       //el axios de aca deberia haber llamado a useApiCall pero x alguna razon react me tiraba un problema. y para que funcione en useApiCall tenia que borrar ".results"
       //y decidi hacerlo asi para entregar algo funcional a algo no funcional pero optimizado
     }
   }
-  console.log(foods)
 
-  const remove = (id, pricePerServing) => {
+  const remove = (id, pricePerServing, readyInMinutes) => {
     const deleteItem = listCart.filter(food => food.id !== id)
-    setPrice(price - pricePerServing) 
+    setPrice(price - pricePerServing)
+    //setPromedioPreparacion((tiempoPreparacion - readyInMinutes)/(cantMenu+1))
     setListCart(deleteItem)
   }
+
+  console.log(tiempoPreparacion)
+  console.log(cantMenu)
 
   const reset = () => {
     setPrice(0)
     setListCart([])
+    setCantMenu(0)
+    setTiempoPreparacion(0)
   }
-  
 
   return (
     <>
@@ -88,7 +96,7 @@ export const Home = () => {
           </tbody>
         </table>
         <table className='table'>
-        <thead>
+          <thead>
             <tr>
               <th scope="col">Final Price</th>
               <th scope="col">Ready total</th>
@@ -96,8 +104,8 @@ export const Home = () => {
           </thead>
           <tbody>
             <tr>
-              <td>${price.toFixed(2)}</td> 
-              <td>20 minutes</td> 
+              <td>$ {price.toFixed(2)}</td>
+              <td>{ cantMenu === 0 ? 0: (tiempoPreparacion/cantMenu).toFixed(2)} minutes</td>
             </tr>
           </tbody>
         </table>

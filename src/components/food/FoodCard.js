@@ -12,7 +12,7 @@ export const FoodCard = ({
 
     const [textDetail, setTextDetail] = useState('')
 
-    const apikey= '5ec1b4b811504fbfbef0a567e9059c05'
+    const apikey= '99e23a28d32b4bc0bf4f1db6d7e5693a'
     
     const HandleDetail = (id) => {
         setShowDetail(!showDetail)
