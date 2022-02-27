@@ -6,18 +6,20 @@ export const FoodCard = ({
     title,
     image,
     add,
+    vegan
 }) => {
 
     const [showDetail, setShowDetail] = useState(false)
 
     const [textDetail, setTextDetail] = useState('')
 
-    const apikey= '99e23a28d32b4bc0bf4f1db6d7e5693a'
+    const apikey= '47ed6fdb2c484437b2cf702aa799276e'
     
     const HandleDetail = (id) => {
         setShowDetail(!showDetail)
         axios.get(`https://api.spoonacular.com/recipes/${id}/information?&apiKey=${apikey}`)
         .then(response => {
+            console.log(response.data)
             setTextDetail(response.data.summary)
         }).catch(e => console.log(e))   
     }
@@ -40,7 +42,7 @@ export const FoodCard = ({
                         </>
                 }
 
-                <button className="btn btn-primary" onClick={() => add(id)}>Buy</button>
+                <button className="btn btn-primary" onClick={() => add(id, vegan)}>Buy</button>
             </div>
         </div>
     )

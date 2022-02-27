@@ -6,6 +6,8 @@ export const Item = ({
     image,
     pricePerServing,
     readyInMinutes,
+    vegan,
+    healthScore,
     remove
 }) => {
     return (
@@ -15,7 +17,7 @@ export const Item = ({
                 <td><img src={image} width={100} alt={title}/></td>
                 <td>${pricePerServing}</td>
                 <td>{readyInMinutes} minutes</td>
-                <td><button className='btn btn-info' onClick={()=>remove(id, pricePerServing, readyInMinutes)}>remove</button></td>
+                <td><button className='btn btn-info' onClick={()=>remove(id, pricePerServing, readyInMinutes, healthScore)}>remove</button></td>
             </tr>
         </>
     )
