@@ -6,14 +6,13 @@ export const FoodCard = ({
     title,
     image,
     add,
-    vegan
 }) => {
 
     const [showDetail, setShowDetail] = useState(false)
 
     const [textDetail, setTextDetail] = useState('')
 
-    const apikey= '47ed6fdb2c484437b2cf702aa799276e'
+    const apikey= '5ec1b4b811504fbfbef0a567e9059c05'
     
     const HandleDetail = (id) => {
         setShowDetail(!showDetail)
@@ -42,7 +41,7 @@ export const FoodCard = ({
                         </>
                 }
 
-                <button className="btn btn-primary" onClick={() => add(id, vegan)}>Buy</button>
+                <button className="btn btn-primary" onClick={() => add(id)}>Buy</button>
             </div>
         </div>
     )

@@ -6,7 +6,6 @@ export const Item = ({
     image,
     pricePerServing,
     readyInMinutes,
-    vegan,
     healthScore,
     remove
 }) => {

@@ -1,7 +1,6 @@
 import React, { useState } from 'react'
 import { FoodList } from './FoodList';
 import { useApiCall } from '../customHooks/useApiCall'
-import { Navbar } from '../navegacion/Navbar';
 import { Item } from '../cart/Item';
 import axios from 'axios';
 
@@ -45,7 +44,7 @@ export const Home = () => {
             setHealthScore(healthScore + response.data.healthScore)
             setPrice(price + response.data.pricePerServing)
           }
-        } else { 
+        } else {
           if (cantNoVegan.length >= 2) {
             alert("ya no se pueden agregar mas platos no veganos")
           } else {
@@ -60,7 +59,12 @@ export const Home = () => {
   }
 
   const add = (id) => {
-      api(id)
+
+    const exist1 = cantVegan.find(food => food.id === id);
+    const exist2 = cantNoVegan.find(food => food.id === id);
+    exist1 || exist2 ? alert('ya fue agregada esa comida o llegaste a los 4 platos que es el maximo') : api(id)
+
+
   }
 
   const remove = (id, pricePerServing, readyInMinutes, healthScoreItem) => {
@@ -84,8 +88,7 @@ export const Home = () => {
 
   return (
     <>
-      <Navbar />
-      <h1 className='text-center'>AlkemyChallenge</h1>
+      <h1 className='text-center'>Home</h1>
       <hr />
       <FoodList
         foods={foods}
@@ -93,7 +96,7 @@ export const Home = () => {
         remove={remove}
       />
       <div className='container'>
-        <h4 className='text-center'>Cart</h4>
+        <h4 className='text-center mt-2'>Cart</h4>
         <button className='btn btn-danger' onClick={reset}>clear cart</button>
         <table className="table">
           <thead>
